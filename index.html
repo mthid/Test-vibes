@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex Strand — UI/UX & Brand Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --bg2: #111111;
+      --bg3: #181818;
+      --accent: #c8ff00;
+      --accent-dim: #a0cc00;
+      --text: #f0f0f0;
+      --muted: #888;
+      --border: #222;
+      --radius: 12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 5vw;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-weight: 900;
+      font-size: 1.25rem;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #000;
+      padding: 0.55rem 1.4rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent-dim); transform: translateY(-1px); }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* ─── HERO ────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 5vw 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .hero-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,255,0,0.12) 0%, transparent 70%);
+      top: -100px;
+      right: -100px;
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(200,255,0,0.1);
+      border: 1px solid rgba(200,255,0,0.25);
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      margin-bottom: 1.8rem;
+      width: fit-content;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -0.04em;
+      max-width: 900px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title .accent { color: var(--accent); }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--muted);
+      max-width: 520px;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+      padding: 0.9rem 2.2rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent-dim); transform: translateY(-2px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      padding: 0.9rem 2.2rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { border-color: #555; transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex;
+      gap: 3rem;
+      margin-top: 5rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .stat-num {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    /* ─── SECTIONS ────────────────────────────────────── */
+    section { padding: 6rem 5vw; }
+    .section-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .section-sub {
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    /* ─── ABOUT ───────────────────────────────────────── */
+    #about { background: var(--bg2); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 50%, #1e1e1e 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .about-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(200,255,0,0.05) 0%, transparent 60%);
+    }
+    .about-img-badge {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      background: var(--accent);
+      color: #000;
+      font-weight: 900;
+      font-size: 0.85rem;
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius);
+      line-height: 1.3;
+      text-align: center;
+    }
+
+    .about-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+    .skill-tag {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .skill-tag:hover { color: var(--text); border-color: #444; }
+
+    /* ─── SERVICES ────────────────────────────────────── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .service-card:hover { border-color: #444; transform: translateY(-4px); }
+
+    .service-icon {
+      width: 56px; height: 56px;
+      background: rgba(200,255,0,0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      margin-bottom: 1.5rem;
+    }
+    .service-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ─── PORTFOLIO ───────────────────────────────────── */
+    #portfolio { background: var(--bg2); }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+      cursor: pointer;
+    }
+    .project-card:hover { border-color: #444; transform: translateY(-6px); }
+    .project-card:hover .project-overlay { opacity: 1; }
+
+    .project-thumb {
+      position: relative;
+      aspect-ratio: 16/10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      overflow: hidden;
+    }
+
+    .project-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .view-btn {
+      background: var(--accent);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.6rem 1.5rem;
+      border-radius: 999px;
+      text-decoration: none;
+    }
+
+    .project-info {
+      padding: 1.25rem 1.5rem;
+    }
+    .project-cat {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .project-title {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .project-desc {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* project thumb color themes */
+    .thumb-1 { background: linear-gradient(135deg, #1a0a3a, #3d0080, #6600cc); }
+    .thumb-2 { background: linear-gradient(135deg, #0a1a2a, #004466, #007799); }
+    .thumb-3 { background: linear-gradient(135deg, #1a0a00, #4a2000, #8a3a00); }
+    .thumb-4 { background: linear-gradient(135deg, #001a0a, #003322, #006644); }
+    .thumb-5 { background: linear-gradient(135deg, #1a000a, #440022, #880044); }
+    .thumb-6 { background: linear-gradient(135deg, #0a0a1a, #222244, #3344aa); }
+
+    /* ─── TESTIMONIALS ────────────────────────────────── */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .testimonial-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+    }
+    .stars {
+      color: var(--accent);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+    }
+    .testimonial-text {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #ccc;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+    .author-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .avatar-1 { background: linear-gradient(135deg, #3d0080, #6600cc); }
+    .avatar-2 { background: linear-gradient(135deg, #004466, #007799); }
+    .avatar-3 { background: linear-gradient(135deg, #003322, #006644); }
+
+    .author-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .author-title {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ─── CONTACT ─────────────────────────────────────── */
+    #contact { background: var(--bg2); }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .contact-info h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .contact-info p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    .contact-link:hover { color: var(--text); }
+    .contact-link-icon {
+      width: 38px; height: 38px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus { border-color: var(--accent); }
+    .form-group select option { background: var(--bg3); }
+    .form-group textarea { height: 130px; }
+
+    .btn-submit {
+      background: var(--accent);
+      color: #000;
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-submit:hover { background: var(--accent-dim); transform: translateY(-2px); }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer {
+      padding: 2.5rem 5vw;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    footer p {
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-links a {
+      font-size: 0.83rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); }
+
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 65px; left: 0; right: 0;
+        background: var(--bg2);
+        border-bottom: 1px solid var(--border);
+        padding: 1.5rem 5vw 2rem;
+        flex-direction: column;
+        gap: 1.2rem;
+        z-index: 99;
+      }
+      .mobile-menu.open { display: flex; }
+      .mobile-menu a {
+        color: var(--text);
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 500;
+      }
+      .mobile-menu .nav-cta {
+        display: inline-block;
+        width: fit-content;
+      }
+
+      .about-grid,
+      .contact-wrap { grid-template-columns: 1fr; gap: 3rem; }
+      .about-img-badge { display: none; }
+      .services-grid,
+      .portfolio-grid,
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-stats { gap: 2rem; }
+    }
+
+    @media (min-width: 901px) and (max-width: 1200px) {
+      .portfolio-grid,
+      .services-grid,
+      .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 500px) {
+      .hero-title { font-size: 2.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">Alex<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#portfolio">Work</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">Let's talk</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#services" class="mobile-link">Services</a>
+    <a href="#portfolio" class="mobile-link">Work</a>
+    <a href="#testimonials" class="mobile-link">Reviews</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+    <a class="nav-cta mobile-link" href="#contact">Let's talk</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow"></div>
+
+    <div class="hero-tag">Available for freelance — March 2026</div>
+
+    <h1 class="hero-title">
+      Design that<br />
+      <span class="accent">actually</span><br />
+      converts.
+    </h1>
+    <p class="hero-sub">
+      I'm Alex Strand — a UI/UX and brand designer based in Stockholm.
+      I help startups and scale-ups build products people love to use.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#portfolio">View my work</a>
+      <a class="btn-secondary" href="#contact">Start a project</a>
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Years of experience</div>
+      </div>
+      <div>
+        <div class="stat-num">48</div>
+        <div class="stat-label">Projects delivered</div>
+      </div>
+      <div>
+        <div class="stat-num">18</div>
+        <div class="stat-label">Happy clients</div>
+      </div>
+      <div>
+        <div class="stat-num">4</div>
+        <div class="stat-label">Design awards</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-img-wrap">
+        <div class="about-img">🎨</div>
+        <div class="about-img-badge">Open to<br />full-time &amp;<br />freelance</div>
+      </div>
+      <div>
+        <p class="section-tag">About me</p>
+        <h2 class="section-title">I turn complex problems into elegant interfaces.</h2>
+        <p style="color:var(--muted);line-height:1.8;margin-bottom:1rem;">
+          Hi, I'm Alex. I've spent the last six years designing digital products
+          that balance visual polish with real usability. My work spans SaaS dashboards,
+          consumer apps, and full brand identities — always with a focus on clarity,
+          intention, and a healthy obsession with the details others miss.
+        </p>
+        <p style="color:var(--muted);line-height:1.8;margin-bottom:2rem;">
+          Before going independent, I was lead designer at a fintech startup in Stockholm
+          where I helped grow the product from 0 to 200k users. Now I work with
+          ambitious teams who want design to be a genuine competitive advantage.
+        </p>
+        <div class="about-skills">
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">UI Design</span>
+          <span class="skill-tag">UX Research</span>
+          <span class="skill-tag">Design Systems</span>
+          <span class="skill-tag">Prototyping</span>
+          <span class="skill-tag">Brand Identity</span>
+          <span class="skill-tag">Motion Design</span>
+          <span class="skill-tag">Framer</span>
+          <span class="skill-tag">Webflow</span>
+          <span class="skill-tag">Illustration</span>
+          <span class="skill-tag">Typography</span>
+          <span class="skill-tag">User Testing</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <p class="section-tag">What I do</p>
+    <h2 class="section-title">Services</h2>
+    <p class="section-sub">
+      From initial concept to polished launch — I cover the full design spectrum.
+    </p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🏷️</div>
+        <h3>Brand Identity</h3>
+        <p>
+          Logos, typography, colour systems and visual language that make your brand
+          instantly recognisable and impossible to ignore.
+        </p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🖥️</div>
+        <h3>UI/UX Design</h3>
+        <p>
+          End-to-end product design — from user research and wireframes to
+          pixel-perfect UI and developer-ready component libraries.
+        </p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">✦</div>
+        <h3>Motion &amp; Interaction</h3>
+        <p>
+          Micro-interactions, animated transitions, and scroll-driven storytelling
+          that make your product feel alive and premium.
+        </p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌐</div>
+        <h3>Web Design &amp; Build</h3>
+        <p>
+          High-converting marketing sites built in Framer or Webflow, designed
+          and shipped fast without cutting corners on quality.
+        </p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📐</div>
+        <h3>Design Systems</h3>
+        <p>
+          Scalable component libraries and documentation that keep your team
+          consistent as your product and team grow.
+        </p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔍</div>
+        <h3>UX Audit</h3>
+        <p>
+          A deep-dive review of your existing product to surface friction points
+          and deliver a prioritised action plan for improvement.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <p class="section-tag">Selected work</p>
+    <h2 class="section-title">Projects</h2>
+    <p class="section-sub">
+      A selection of recent projects spanning product design, branding, and web.
+    </p>
+    <div class="portfolio-grid">
+
+      <div class="project-card">
+        <div class="project-thumb thumb-1">
+          <span>📊</span>
+          <div class="project-overlay"><span class="view-btn">View project →</span></div>
+        </div>
+        <div class="project-info">
+          <div class="project-cat">SaaS · UI/UX</div>
+          <div class="project-title">Nōrd Analytics Dashboard</div>
+          <div class="project-desc">Complete redesign of a B2B analytics platform serving 50k+ users.</div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb thumb-2">
+          <span>💳</span>
+          <div class="project-overlay"><span class="view-btn">View project →</span></div>
+        </div>
+        <div class="project-info">
+          <div class="project-cat">Fintech · Brand + App</div>
+          <div class="project-title">Klarity — Personal Finance App</div>
+          <div class="project-desc">Brand identity and full iOS app design for a budget-tracking startup.</div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb thumb-3">
+          <span>🛍️</span>
+          <div class="project-overlay"><span class="view-btn">View project →</span></div>
+        </div>
+        <div class="project-info">
+          <div class="project-cat">E-commerce · Web Design</div>
+          <div class="project-title">Ambre — Luxury Skincare</div>
+          <div class="project-desc">Premium Framer website and visual identity for a French skincare brand.</div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb thumb-4">
+          <span>🏥</span>
+          <div class="project-overlay"><span class="view-btn">View project →</span></div>
+        </div>
+        <div class="project-info">
+          <div class="project-cat">HealthTech · UI/UX</div>
+          <div class="project-title">Pulse — Patient Portal</div>
+          <div class="project-desc">Accessible web app for a digital health clinic, designed for all ages.</div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb thumb-5">
+          <span>🎵</span>
+          <div class="project-overlay"><span class="view-btn">View project →</span></div>
+        </div>
+        <div class="project-info">
+          <div class="project-cat">Consumer App · Motion</div>
+          <div class="project-title">Waveform — Music Social</div>
+          <div class="project-desc">Playful, animation-heavy UI concept for a music discovery platform.</div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb thumb-6">
+          <span>🏢</span>
+          <div class="project-overlay"><span class="view-btn">View project →</span></div>
+        </div>
+        <div class="project-info">
+          <div class="project-cat">B2B SaaS · Design System</div>
+          <div class="project-title">Structa Design System</div>
+          <div class="project-desc">700+ component library built for an enterprise project management tool.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <p class="section-tag">Social proof</p>
+    <h2 class="section-title">What clients say</h2>
+    <p class="section-sub">Don't just take my word for it.</p>
+    <div class="testimonials-grid">
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">
+          "Working with Alex was genuinely one of the best decisions we made this year.
+          They took our vague brief and turned it into a product our users absolutely love.
+          The attention to detail is unreal."
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar avatar-1">👩‍💼</div>
+          <div>
+            <div class="author-name">Sara Lindqvist</div>
+            <div class="author-title">CEO, Klarity</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">
+          "Alex redesigned our entire dashboard in 6 weeks. The new design reduced
+          support tickets by 40% and our NPS score jumped 18 points.
+          That's the ROI of great UX."
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar avatar-2">👨‍💻</div>
+          <div>
+            <div class="author-name">Marcus Holm</div>
+            <div class="author-title">CPO, Nōrd Analytics</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">
+          "Our new website launched last month and conversion is up 62% compared to the
+          old one. Alex didn't just make it look beautiful — they made it work.
+          Hiring them again for our next project."
+        </p>
+        <div class="testimonial-author">
+          <div class="author-avatar avatar-3">👩‍🎨</div>
+          <div>
+            <div class="author-name">Camille Moreau</div>
+            <div class="author-title">Founder, Ambre Skincare</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-wrap">
+      <div class="contact-info">
+        <p class="section-tag">Get in touch</p>
+        <h2 class="section-title">Let's build something great.</h2>
+        <p>
+          Have a project in mind? I'm currently taking on new clients for Q2 2026.
+          Drop me a message and I'll get back within 24 hours.
+        </p>
+        <div class="contact-links">
+          <a class="contact-link" href="#">
+            <span class="contact-link-icon">✉️</span>
+            hello@alexstrand.design
+          </a>
+          <a class="contact-link" href="#">
+            <span class="contact-link-icon">🐦</span>
+            @alexstrand
+          </a>
+          <a class="contact-link" href="#">
+            <span class="contact-link-icon">💼</span>
+            linkedin.com/in/alexstrand
+          </a>
+          <a class="contact-link" href="#">
+            <span class="contact-link-icon">🎨</span>
+            dribbble.com/alexstrand
+          </a>
+        </div>
+      </div>
+
+      <form class="contact-form" onsubmit="return false;">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input id="name" type="text" placeholder="Your name" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="you@company.com" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="service">Service</label>
+          <select id="service">
+            <option value="" disabled selected>What do you need?</option>
+            <option>Brand Identity</option>
+            <option>UI/UX Design</option>
+            <option>Web Design &amp; Build</option>
+            <option>Motion &amp; Interaction</option>
+            <option>Design System</option>
+            <option>UX Audit</option>
+            <option>Something else</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="budget">Budget</label>
+          <select id="budget">
+            <option value="" disabled selected>Estimated budget</option>
+            <option>Under €5,000</option>
+            <option>€5,000 – €15,000</option>
+            <option>€15,000 – €40,000</option>
+            <option>€40,000+</option>
+            <option>Let's discuss</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" placeholder="Tell me about your project..."></textarea>
+        </div>
+        <button class="btn-submit" type="submit">Send message →</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Alex Strand. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#portfolio">Work</a>
+      <a href="#contact">Contact</a>
+      <a href="#">Privacy</a>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+  </script>
+
+</body>
+</html>
